@@ -1,0 +1,8 @@
+.DS_STORE
+/target
+target
+docker-compose.yml
+/test-ledger
+Cargo.lock
+.env
+/.config
