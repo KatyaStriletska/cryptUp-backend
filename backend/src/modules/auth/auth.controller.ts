@@ -31,6 +31,22 @@ export class AuthController {
       .json(request.session.user);
   }
 
+  async loginWithIdeaforgeToken(request: Request, response: Response) {
+    const { ideaforgeAccessToken } = request.body;
+    const { user, accessToken } = await authService.loginWithIdeaforgeToken(
+      ideaforgeAccessToken,
+      request.sessionID,
+    );
+
+    request.session.user = user;
+
+    return response
+      .status(HttpStatusCode.Created)
+      .json({
+        accessToken,
+      });
+  }
+
   async loginWithCredentials(request: Request, response: Response) {
     const { email, password } = request.body;
     const { user, accessToken } = await authService.loginWithCredentials(

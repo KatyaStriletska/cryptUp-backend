@@ -2,10 +2,10 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env.database' });
+dotenv.config({ path: '../.env.dev' });
 console.log({
   host: process.env.DATABASE_HOST,
-  port: process.env.DATABASE_PORT,
+  port: process.env.DATABASE_PORT + '3',
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
@@ -14,11 +14,11 @@ console.log({
 const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DATABASE_HOST || 'localhost',
-  port: Number(process.env.DATABASE_PORT || 5432),
+  port:  5432,
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  synchronize: true,
+  synchronize: false,
   logging: false,
   ...(process.env.NODE_ENV === 'production'
     ? {

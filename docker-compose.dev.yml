@@ -1,24 +1,24 @@
 services:
-  backend:
+  vl-backend:
     build:
       context: ./backend
       dockerfile: ./Dockerfile.dev
     container_name: venture-launch-backend
     networks:
-      - venture-launch-network
+      - ideaforge-network
     env_file: ./.env.dev
     ports:
-      - ${INTERNAL_BACKEND_PORT}:8000
+      - ${INTERNAL_BACKEND_PORT}:8001
     volumes:
       - ./backend/src:/app/src
     depends_on:
-      - database
+      - vl-database
 
-  database:
+  vl-database:
     image: postgres:latest
     container_name: venture-launch-database
     networks:
-      - venture-launch-network
+      - ideaforge-network
     env_file: ./.env.dev
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -36,7 +36,7 @@ services:
     image: rabbitmq:3-management
     container_name: venture-launch-rabbitmq
     networks:
-      - venture-launch-network
+      - ideaforge-network
     env_file:
       - ./.env.dev
     ports:
@@ -52,18 +52,18 @@ services:
       dockerfile: ./.Dockerfile.dev
     container_name: venture-launch-rust
     networks:
-      - venture-launch-network
+      - ideaforge-network
     env_file: ./venture-launch-dao/.env
     volumes:
       - ./venture-launch-dao/src:/app/src
     depends_on:
       - rabbitmq
-      - backend
+      - vl-backend
     restart: on-failure
 
 networks:
-  venture-launch-network:
-    driver: bridge
+  ideaforge-network:
+    external: true
 
 volumes:
   database_data:

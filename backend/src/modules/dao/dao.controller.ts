@@ -13,7 +13,8 @@ export class DAOController {
       ? parseObjectStringValuesToPrimitives(
           qs.parse(request.query as Record<string, any>, { comma: true, allowDots: true }),
         )
-      : undefined;
+      : undefined;     
+      
 
     const daos = await daoService.findMany(query);
 

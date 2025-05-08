@@ -54,6 +54,9 @@ export class ProjectLaunchEntity implements ProjectLaunch {
   @Column({ type: 'text' })
   businessModel: string;
 
+  @Column({ type: 'text', default: '' })
+  externalId: string;
+
   @Column({ type: 'text' })
   tokenomics: string;
 

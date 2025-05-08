@@ -59,7 +59,7 @@ export class UserService {
   async create(data: CreateUserDto): Promise<UserEntity> {
     try {
       const exists = await AppDataSource.getRepository(UserEntity).exists({
-        where: [{ email: data.email, username: data.username, walletId: data.walletId }],
+        where: [{ email: data.email, username: data.username, ...(data.walletId && { walletId: data.walletId }) }],
       });
 
       if (exists) {
@@ -80,6 +80,24 @@ export class UserService {
 
   async update(id: string, data: UpdateUserDto): Promise<UserEntity> {
     try {
+      if (data.walletId) {
+        const userFromDb = await AppDataSource.getRepository(UserEntity).findOneOrFail({
+          where: [{ id, }],
+        });
+        if (!userFromDb.walletId || userFromDb.walletId !== data.walletId) {
+          const existsUserWithWallet = await AppDataSource.getRepository(UserEntity).exists({
+            where: [{ walletId: data.walletId }],
+          });
+
+          if (existsUserWithWallet) {
+            throw new ConflictException(
+              'Cannot update a user. The specified wallet was already used by another user',
+            );
+          }
+        }
+      }
+
+
       if (data.password?.trim()) {
         data.password = await passwordService.hash(data.password);
       } else {
@@ -98,6 +116,9 @@ export class UserService {
           'Cannot update the user. The user with provided id does not exist',
           error,
         );
+      }
+      if (error instanceof ConflictException) {
+        throw error;
       }
 
       throw new DatabaseException('InternalServerError', error);

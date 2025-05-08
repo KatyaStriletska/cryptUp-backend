@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
 export class PasswordService {
-  async hash(password: string): Promise<string> {
+  async hash(password: string): Promise<string> {console.log('process.env.PASSWORD_SALT_PREFIX', process.env.PASSWORD_SALT_PREFIX)
     return bcrypt.hash(
       `${process.env.PASSWORD_SALT_PREFIX}.${password}.${process.env.PASSWORD_SALT_SUFFIX}`,
       process.env.PASSWORD_SALT_ROUNDS || 10,

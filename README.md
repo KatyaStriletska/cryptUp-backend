@@ -65,7 +65,7 @@ These instructions will help you get a copy of the project up and running on you
   # Frontend environment variables
   VITE_FRONTEND_PORT=3000
   VITE_BACKEND_HOST=http://localhost
-  VITE_BACKEND_PORT=8000
+  VITE_BACKEND_PORT=8001
   VITE_AUTH_MESSAGE='To verify your wallet sign this message'
   VITE_AUTH_TOKEN_NAME='X-Access-Token'
   VITE_NFT_GENERATOR_PROGRAM_ID=HpAYvZEKRpJMXDGFGqqnrRPHBrxJM2MQqaTJBgy2sXVv
@@ -73,7 +73,7 @@ These instructions will help you get a copy of the project up and running on you
   
   # Backend environment variables
   FRONTEND_PORT=3000
-  BACKEND_PORT=8000
+  BACKEND_PORT=8001
   
   FRONTEND_HOST=http://localhost
   AUTH_MESSAGE='To verify your wallet sign this message'
@@ -98,7 +98,7 @@ These instructions will help you get a copy of the project up and running on you
 
   ```
   # Docker additional environment variables
-  DOCKER_BACKEND_PORT=8000
+  DOCKER_BACKEND_PORT=8001
   DOCKER_FRONTEND_PORT=3000
   
   # Frontend environment variables
@@ -115,7 +115,7 @@ These instructions will help you get a copy of the project up and running on you
   
   # Backend environment variables
   FRONTEND_PORT=88
-  BACKEND_PORT=8000
+  BACKEND_PORT=8001
   
   FRONTEND_HOST=http://localhost
   AUTH_MESSAGE='To verify your wallet sign this message'

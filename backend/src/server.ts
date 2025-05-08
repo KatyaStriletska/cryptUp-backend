@@ -17,7 +17,7 @@ import { rabbitMQ, rabbitMQConsumer } from './utils/rabbitmq.utils';
 
 dotenv.config();
 
-const port = process.env.BACKEND_PORT || 8000;
+const port = process.env.BACKEND_PORT || 8001;
 const app = express();
 
 app.use(express.json());
@@ -34,6 +34,7 @@ app.use(
     cookie: {
       httpOnly: true,
       domain: process.env.COOKIES_DOMAIN,
+      sameSite: 'lax',
       maxAge: Number(process.env.SESSION_MAX_AGE || 24 * 60 * 60 * 1000),
     },
   }),
@@ -45,6 +46,12 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use((req, res, next) => {
+  console.log('Session ID from cookie:', req.sessionID);
+  console.log('Session object:', req.session);
+  next();
+});
 
 app.use(routes);
 app.use(exceptionsFilter);

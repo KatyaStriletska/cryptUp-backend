@@ -1,5 +1,5 @@
 services:
-  backend:
+  vl-backend:
     build:
       context: ./backend
       dockerfile: ./Dockerfile.local
@@ -8,13 +8,13 @@ services:
       - venture-launch-network
     env_file: ./.env.local
     ports:
-      - ${INTERNAL_BACKEND_PORT}:8000
+      - ${INTERNAL_BACKEND_PORT}:8001
     volumes:
       - ./backend/src:/app/src
     depends_on:
-      - database
+      - vl-database
 
-  database:
+  vl-database:
     image: postgres:latest
     container_name: venture-launch-database
     networks:
@@ -62,7 +62,7 @@ services:
     expose:
       - ${INTERNAL_NGINX_PORT}
     depends_on:
-      - backend
+      - vl-backend
     restart: unless-stopped
 
   rust:
@@ -77,7 +77,7 @@ services:
       - ./venture-launch-dao/src:/app/src
     depends_on:
       - rabbitmq
-      - backend
+      - vl-backend
     restart: on-failure
 
 networks:

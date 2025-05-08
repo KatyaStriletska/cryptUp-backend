@@ -58,7 +58,7 @@ export class ProjectLaunchService {
   }
 
   async create(data: CreateProjectLaunchDto): Promise<ProjectLaunchEntity> {
-    console.log("CREATE Project launch");
+    console.log("CREATE Project launch", data);
     
     try {
       const exists = await AppDataSource.getRepository(ProjectLaunchEntity).exists({

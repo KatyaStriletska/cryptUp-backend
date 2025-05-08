@@ -10,6 +10,7 @@ router.post('/oauth/google', authController.generateGoogleOAuth2Url);
 router.post('/auth/login/wallet', authController.loginWithWallet);
 router.post('/auth/login/google', authController.loginWithGoogle);
 router.post('/auth/login/credentials', authController.loginWithCredentials);
+router.post('/auth/login/ideaforge', authController.loginWithIdeaforgeToken);
 router.post('/auth/register', authController.register);
 router.post('/auth/logout', authController.logout);
 
