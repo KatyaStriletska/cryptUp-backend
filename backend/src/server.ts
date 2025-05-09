@@ -40,6 +40,7 @@ app.use(
   }),
 );
 
+console.log('process.env.ALLOWED_ORIGINS', process.env.ALLOWED_ORIGINS)
 app.use(
   cors({
     origin: (process.env.ALLOWED_ORIGINS || '').split(', '),
