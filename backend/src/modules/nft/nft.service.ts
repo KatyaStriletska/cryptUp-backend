@@ -373,12 +373,13 @@ const getUrlMetadataForProject = async (projectName: string, imageUrl: string) =
     symbol: 'PROTOKEN',
     description: `Project tokens, that were made after project - ${projectName} submition.`,
     attributes: attributes,
-    image: imageUrl,
+    image:
+      'https://gateway.pinata.cloud/ipfs/bafkreiebaajknbugazdacbnm2hbtr2xcn42bvy3a357u74bxx5h3lombte',
     properties: {
       files: [
         {
           type: 'image/png',
-          uri: imageUrl,
+          uri: 'https://gateway.pinata.cloud/ipfs/bafkreiebaajknbugazdacbnm2hbtr2xcn42bvy3a357u74bxx5h3lombte',
         },
       ],
     },
@@ -558,7 +559,7 @@ const startVestingTokens = async (
   const program = new Program(idl, provider);
 
   const vesting_duration = new BN(30 * 60); // 1 hour
-  const tge_percentage = 1000; // 10% of total amount (1000 bps)
+  const tge_percentage = 1500; // 10% of total amount (1000 bps)
 
   const investorPubKey = new PublicKey(investorAddress);
   const tokenPubKey = new PublicKey(tokenAddress);
