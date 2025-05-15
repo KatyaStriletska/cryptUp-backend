@@ -35,7 +35,7 @@ export class UserEntity implements User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 64, unique: true })
+  @Column({ type: 'varchar', length: 64, unique: false })
   walletId: string;
 
   @Column({ type: 'varchar', length: 30, unique: true })

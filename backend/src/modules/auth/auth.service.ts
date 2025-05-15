@@ -153,10 +153,56 @@ export class AuthService {
     }
   }
 
+  // to give tokens for user based on passwords hash, needed for ideaforge -> vl migration
+  async loginWithIdeaforgeToken(
+    ideaforgeAccessToken: string,
+    sessionId: string,
+  ): Promise<LoginWithGoogleResponse | never> {
+    try {
+      // as of now, 
+      const isTokenValid = await this.tryValidateAuthJwtToken(ideaforgeAccessToken);
+      if (isTokenValid) {
+        const decodedBody = jose.decodeJwt(ideaforgeAccessToken);
+        console.log('decodedBody.payload', decodedBody)
+        const userEmail = decodedBody.email as string;
+        const user = await AppDataSource.getRepository(UserEntity).findOneOrFail({
+          where: { email: userEmail! },
+        });
+
+        const { accessToken } = await this.generateJwtTokens(user);
+
+        await AppDataSource.getRepository(SessionEntity).upsert(
+          {
+            expiresAt: new Date(
+              Date.now() + Number(process.env.SESSION_MAX_AGE || 24 * 60 * 60 * 1000),
+            ),
+            sessionId,
+            user,
+          },
+          ['user'],
+        );
+
+        return { user, accessToken };
+      } else {
+        throw new AuthException('Cannot authenticate the user with provided IF token');
+      }
+    } catch (error: any) {
+      if (error instanceof AuthException) {
+        throw error;
+      }
+
+      if (error instanceof EntityNotFoundError) {
+        throw new AuthException('Cannot authenticate the user with provided credentials', error);
+      }
+
+      throw new DatabaseException('Internal server error', error);
+    }
+  }
+
   async register(user: AccountRegistrationData): Promise<UserEntity> {
     try {
       const exists = await AppDataSource.getRepository(UserEntity).exists({
-        where: [{ email: user.email }, { username: user.username }, { walletId: user.walletId }],
+        where: [{ email: user.email }, { username: user.username }, { ...(!!user.walletId && { walletId: user.walletId }) }],
       });
      
       console.log(user)

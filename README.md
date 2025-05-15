@@ -78,7 +78,7 @@ root of the project with the following structure:
 # Frontend environment variables
 VITE_FRONTEND_PORT=3000
 VITE_BACKEND_HOST=http://localhost
-VITE_BACKEND_PORT=8000
+VITE_BACKEND_PORT=8001
 VITE_AUTH_MESSAGE='To verify your wallet sign this message'
 VITE_AUTH_TOKEN_NAME='X-Access-Token'
 VITE_NFT_GENERATOR_PROGRAM_ID=HpAYvZEKRpJMXDGFGqqnrRPHBrxJM2MQqaTJBgy2sXVv
@@ -86,7 +86,7 @@ VITE_TOKEN_METADATA_PROGRAM_ID=metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s
 
 # Backend environment variables
 FRONTEND_PORT=3000
-BACKEND_PORT=8000
+BACKEND_PORT=8001
 
 FRONTEND_HOST=http://localhost
 AUTH_MESSAGE='To verify your wallet sign this message'
@@ -112,7 +112,7 @@ in the root of the project with the following structure:
 
 ```
 # Docker additional environment variables
-DOCKER_BACKEND_PORT=8000
+DOCKER_BACKEND_PORT=8001
 DOCKER_FRONTEND_PORT=3000
 
 # Frontend environment variables
@@ -129,7 +129,7 @@ VITE_NGINX_PORT=88
 
 # Backend environment variables
 FRONTEND_PORT=88
-BACKEND_PORT=8000
+BACKEND_PORT=8001
 
 FRONTEND_HOST=http://localhost
 AUTH_MESSAGE='To verify your wallet sign this message'

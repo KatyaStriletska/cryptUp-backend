@@ -258,12 +258,6 @@ export class NftMintService {
     price: number,
     cant: BN,
   ) {
-    const filePathBaKey = path.resolve(__dirname, 'ba_private_key.json'); // TODO: add here import from env
-
-    if (!fs.existsSync(filePathBaKey)) {
-      console.error(`File not found: ${filePathBaKey}`);
-      process.exit(1);
-    }
     const BA_PRIVATE_KEY = process.env.BA_PRIVATE_KEY;
     if (!BA_PRIVATE_KEY) {
       console.log("BA_PRIVATE_KEY wasn't find");

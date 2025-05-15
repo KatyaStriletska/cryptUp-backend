@@ -236,7 +236,7 @@ export class ProjectLaunchController {
       });
     }
 
-    if (projectLaunch.team) {
+    if (projectLaunch.team && typeof projectLaunch.team !== 'string') {
       projectLaunch.team.forEach((member: any) => {
         if (member.image) {
           pinata.unpin(member.image).catch(console.log);
